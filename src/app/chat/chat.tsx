@@ -104,7 +104,7 @@ const handleKeyPress = (event: { key: string; }) => {
         <pre className="font-mono whitespace-pre-wrap">{displayedMessage}</pre>
     </div>
     <div className="flex items-center bg-black text-green-400 outline-none border-none w-full p-4">
-        <span className="font-mono mr-2">&gt;</span>
+        <span className="font-mono mr-2">{'>'}</span>
         <input type="text" value={userMessage} onChange={handleUserInput} onKeyPress={handleKeyPress} className="bg-black text-green-400 outline-none border-none w-full font-mono" disabled={isWriting} ref={inputRef} /> {/* Disable the input field while the AI is writing */}
     </div>
 </div>
