@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@moralisweb3/next": "^2.26.1",
+    "@vercel/analytics": "^1.2.2",
     "@web3uikit/core": "^1.1.5",
     "bs58": "^5.0.0",
     "class-variance-authority": "^0.7.0",
