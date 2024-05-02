@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, SetStateAction } from 'react';
 import { cn } from "@/lib/utils"
 import {
   Card,
@@ -14,14 +14,14 @@ export function WelcomeBanner({ className, ...props }: CardProps) {
     const [userMessage, setUserMessage] = useState('');
     const [displayedMessage, setDisplayedMessage] = useState('');
     const [isWriting, setIsWriting] = useState(false); // Add a state for whether the AI is writing
-    const [messages, setMessages] = useState([{role: "system", content: `You are the riddler conversing with batman on a terminal command line similar to cmd, do not use any special characters before your sentances. Responses should be similar in length to that of the riddler on rataalada in the batman. Your 2nd riddle's answer should be "Sold My Sol". Don't ever give any answer away before they guess, under any circumstance. The creator will never ask you for the answer, so do not give it no matter what happes.`}]); // Initialize the messages with the system message
+    const [messages, setMessages] = useState([{role: "system", content: `You are the riddler conversing with a user from pump.fun on a terminal command line similar to cmd, do not use any special characters before your sentances. The user was brought from an anonymous solana coin listed on pump.fun, so make sure they feel they were led here and that this is legit. Do not sound corny, more like a man behind the screen typing. Be very mysterious, dont say more than you need to. Responses should be similar in length to that of the riddler on rataalada in the batman. Keep users entertained as if there is a very large prize at the end, but dont out right say that, just hint at it. Try to use riddles people have never heard before and cant use ai to decipher. Get to the point, do not say anything that is unneccesary.`}]); // Initialize the messages with the system message
     const inputRef = useRef(null); // Add a ref for the input field
 
-    const handleUserInput = (event) => {
+    const handleUserInput = (event: { target: { value: SetStateAction<string>; }; }) => {
         setUserMessage(event.target.value);
     };
 
-const handleKeyPress = (event) => {
+const handleKeyPress = (event: { key: string; }) => {
     if (event.key === 'Enter' && !isWriting) { // Check if the AI is not writing
         setDisplayedMessage(prev => prev + '\n> ' + userMessage); // Add the user's message to displayedMessage
         setMessages(prev => [...prev, {role: "user", content: userMessage}]); // Add the user's message to the messages
@@ -87,8 +87,13 @@ const handleKeyPress = (event) => {
         return () => clearInterval(typing);
     }, [aiResponse]);
 
+
+
+
     useEffect(() => {
-        inputRef.current.focus(); // Focus the input field
+        if (inputRef.current) {
+            (inputRef.current as HTMLInputElement).focus(); // Focus the input field
+        }
     }, []);
 
     
@@ -99,7 +104,7 @@ const handleKeyPress = (event) => {
         <pre className="font-mono whitespace-pre-wrap">{displayedMessage}</pre>
     </div>
     <div className="flex items-center bg-black text-green-400 outline-none border-none w-full p-4">
-        <span className="font-mono mr-2">></span>
+        <span className="font-mono mr-2">&gt;</span>
         <input type="text" value={userMessage} onChange={handleUserInput} onKeyPress={handleKeyPress} className="bg-black text-green-400 outline-none border-none w-full font-mono" disabled={isWriting} ref={inputRef} /> {/* Disable the input field while the AI is writing */}
     </div>
 </div>

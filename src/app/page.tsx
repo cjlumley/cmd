@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { WelcomeBanner } from "./chat/page";
+import { WelcomeBanner } from "./chat/chat";
 
 export default function Home() {
   return (
