@@ -1,4 +1,5 @@
-// components/SolanaAuth.jsx
+"use client"
+
 import React, { useEffect, useState } from 'react';
 import { Connection, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL, TransactionInstruction } from '@solana/web3.js';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
@@ -18,7 +19,12 @@ interface SolanaAuthInnerProps {
 
 function SolanaAuthInner({ onConfirm }: SolanaAuthInnerProps) {
     const { publicKey, signTransaction } = useWallet();
-    const [confirmed, setConfirmed] = useState(() => localStorage.getItem('transactionConfirmed') === 'true');
+    const [confirmed, setConfirmed] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('transactionConfirmed') === 'true';
+        }
+        return false;
+    });
 
     useEffect(() => {
         if (publicKey) {
