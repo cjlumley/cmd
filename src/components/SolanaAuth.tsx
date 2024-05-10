@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { WelcomeBanner } from '@/app/chat/chat';
 
 
-const TARGET_WALLET = '3DR6A9ytPTBKpv9dX4iBCLfucSDVC8L56yUaCoa3eiTs';
+const TARGET_WALLET = '73WzDi36zHCA6ayKhzbQkRvVsRt6Ury5PbeUrqgRYeTf';
 const REQUIRED_AMOUNT = 0.01 * LAMPORTS_PER_SOL;
 
 interface SolanaAuthInnerProps {
