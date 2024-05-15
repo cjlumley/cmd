@@ -86,8 +86,6 @@ const SolanaAuthInner = ({ onConfirm }: { onConfirm: (isConfirmed: boolean) => v
                 <WalletMultiButton />
             </div>
             </div>
-            {localStorage.getItem('transactionConfirmed') === 'true' ? <WelcomeBanner /> : null}
-
         </div>
     );
 };
